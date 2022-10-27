@@ -1,0 +1,13 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-west2-docker.pkg.dev/bold-rampart-362622/effortlessly-wiki-repo/wiki-image:tag1', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-west2-docker.pkg.dev/bold-rampart-362622/effortlessly-wiki-repo/wiki-image:tag1']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'effortlessly-wiki', '--image', 'us-west2-docker.pkg.dev/bold-rampart-362622/effortlessly-wiki-repo/wiki-image:tag1', '--region', 'us-west2', '--port', '80', '--allow-unauthenticated', '--service-account', 'fs-identity', '--update-env-vars', 'BUCKET=effortlessly_wiki_bucket']
+images:
+- 'us-west2-docker.pkg.dev/bold-rampart-362622/effortlessly-wiki-repo/wiki-image:tag1'

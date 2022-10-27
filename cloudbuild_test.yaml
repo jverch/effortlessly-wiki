@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'us-west2-docker.pkg.dev/bold-rampart-362622/effortlessly-wiki-repo/wiki-image:tag1', '.' ]
+images:
+- 'us-west2-docker.pkg.dev/bold-rampart-362622/effortlessly-wiki-repo/wiki-image:tag1'
